@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>封装库</title>
+  <style>
+    .box{
+      width: 100px;
+      height: 100px;
+      background-color: skyblue;
+    }
+  </style>
+</head>
+<body>
+
+<div class='box' id="box1"></div>
+<script src="myLib.js"></script>
+<script>
+  /*
+   在开发的过程中，会有很多的实例操作，比如：数组去重，关键词高亮，打乱数组等。这些操作，代码一般不会很多，实现的逻辑也不会很难。但是，用的地方会比较多，如果项目有哪个地方需要用，如果重复写的话，就是代码冗余，开发效率也不高，复用基本就是复制粘贴，这样是一个很不好的习惯。可以考虑把一些常用的操作封装成函数，调用的时候，直接调用就好。
+   */
+
+  var str = " Hello World ! ! ! ";
+//  console.log(str);
+
+
+  //  去除空格  trim(str,type);
+  //  str:字符串  |  type 1-所有空格  2-前后空格  3-前空格 4-后空格
+  //    console.log(LIB.trim(str, 2));
+
+  //还有一种方法直接在原型上封装，调用方便。
+//  String.prototype.trim = function(type){
+//    switch (type) {
+//      case 1:return str.replace(/\s+/g, "");
+//      case 2:return str.replace(/(^\s*)|(\s*$)/g, "");
+//      case 3:return str.replace(/(^\s*)/g, "");
+//      case 4:return str.replace(/(\s*$)/g, "");
+//      default:return this;
+//    }
+//  }
+//  console.log(str.trim(1));
+
+
+
+  //但是，这样是不推荐的做法，这样就污染了原生对象String，别人创建的String也会被污染，造成不必要的开销。更可怕的是，万一自己命名的跟原生的方法重名了，会覆盖原来的方法。所以在原生对象原型进行修改很不推荐！！很多公司禁止这样做。
+
+
+
+
+
+  //  改变大小写  changeCase(str,type);
+  //  str:字符串  |  type 1-首字母大写 2-首页母小写 3-大小写转换 4-全部大写 5-全部小写
+  //  console.log(LIB.changeCase(str, 3));b
+
+  //  字符串循环复制  repeatStr(str,count);
+  //  str:字符串  |  count:次数
+  //  console.log(LIB.repeatStr(str, 2));
+
+  //  字符串替换  replaceAll(str,AFindText,ARepText);
+  //  str:字符串  |  AFindText:要替换的字符或者正则表达式（不要写g） | ARepText:替换成什么
+  //  console.log(LIB.replaceAll(str, 'Hello', 'Hi'));
+
+  //  字符替换  replaceStr(str,regArr,type,ARepText);
+  //  (字符串,字符格式, 替换方式,替换的字符（默认*）)
+  //  var phone = '13812345678';
+  //  console.log(LIB.replaceStr(phone, [3, 4, 4], 0));
+
+  //  检测字符串  checkType(str,type);
+  //  type: phone,email,tel,number,english,text,chinese,lower,upper
+  //  console.log(LIB.checkType('13822622636', 'phone'));
+
+  //  检测密码强度  checkPwd(str);
+  //  (强度等级为3)
+  //  console.log(LIB.checkPwd('df4234SFSadsfadf'));
+
+  //  随机码  randomWord(count);
+  //  count取值范围0-36
+  //  console.log(LIB.randomWord(36));
+
+  //  查找字符串  countStr(str,strSplit);
+//    var str = 'hello hi helo hi hello hllo hii';
+//    console.log(LIB.countStr(str, 'hi'));
+
+  //  数组去重  removeRepeatArray(arr);
+
+  //  数组顺序打乱  upsetArr(arr);
+
+  //  数组最大值  maxArr(arr);
+
+  //  数组最小值  minArr(arr);
+
+  //  数组求和  sumArr(arr);
+
+  //  数组求平均值  covArr(arr);
+
+  //  从数组中随机获取元素  randomOne(arr);
+
+  //  返回数组（字符串）一个元素出现的次数 getEleCount(obj,ele);
+
+  //  返回数组（字符串）出现最多的几次元素和出现次数  getCount(arr);
+  //  console.log(LIB.getCount([1, 2, 3, 1, 2, 5, 2, 4, 1, 2, 6, 2, 1, 3, 2]));
+
+  //  得到n1-n2下标的数组  getArrayNum(arr,n1,n2);
+
+  //  筛选数组  removeArrayForValue(arr,val,type);
+  //  var newArr = LIB.removeArrayForValue(['test', 'test1', 'test2', 'test', 'aaa'],'test')
+
+
+  //  适配rem getFontSize()
+
+  //  到某一个时间的倒计时
+  //  console.log(LIB.getEndTime('2017/8/14 16:05:50'));
+
+  //  随进产生颜色
+  //  console.log(LIB.randomColor());
+
+
+  //  随机返回一个范围的数字  randomNumber(n1,n2);
+  //  console.log(LIB.randomNumber(66, 99));
+
+  //  设置url参数
+  //  console.log(LIB.setUrlPrmt({'a': 1, 'b': 2}));
+
+  //  获取url参数
+  //  console.log(LIB.getUrlPrmt('baidu.com/write?Id=11938&name=kimi'));
+
+  //  现金额大写转换函数 upDigit(168752632)
+  //  console.log(LIB.upDigit(168752632));
+
+  //  清除对象中值为空的属性 filterParams(obj);
+  //  console.log(LIB.filterParams({a: "", b: null, c: "010", d: 123}));
+
+  //  设置cookie   setCookie(name, value, iDay)
+  //  LIB.setCookie('cookie1',123456,1);
+
+  //  删除cookie  removeCookie(name);
+  //  LIB.removeCookie('cookie1');
+
+  
+  /*--------------------------DOM------------------------*/
+  //  检测对象是否有哪个类名  hasClass(oj,classStr);
+  //  console.log(LIB.hasClass(document.getElementById('box1'), 'box'));
+
+  //  删除类名  removeClass(obj,classStr);
+  //  console.log(LIB.removeClass(document.getElementById('box1'), 'box'));
+
+  //  替换类名("被替换的类名","替换的类名") replaceClass(obj, newName, oldName);
+
+  //  获取兄弟节点  siblings(obj,opt);
+
+  //  设置样式  css(obj,json);
+
+  //  设置文本内容  html(obj);
+
+  //  显示隐藏  show(obj);
+  //           hide(obj);
+
+  //  封装ajax函数 ajax(obj);
+  //  ajax({
+  //  	type:'get',
+  //  	url:'xxx',
+  //  	data:{
+  //  		id:'111'
+  //  	},
+  //  	success:function(res){
+  //  		console.log(res)
+  //  	}
+  //  })
+
+  //  获取对象数组某些项  getOptionArray(arr,keys,type);
+  //var arr=[{a:1,b:2,c:9},{a:2,b:3,c:5},{a:5,b:9},{a:4,b:2,c:5},{a:4,b:5,c:7}]
+  //getOptionArray(arr,'a,c')
+  //[{a:1,c:9},{a:2,c:5},{a:5,c:underfind},{a:4,c:5},{a:4,c:7}]
+  //getOptionArray(arr,'a',1)
+  //getOptionArray(arr,'b',1)
+  //[2, 3, 9, 2, 5]
+
+  //  排除数组某些项  filterOptionArray(arr,keys);
+  //var arr=[{a:1,b:2,c:9},{a:2,b:3,c:5},{a:5,b:9},{a:4,b:2,c:5},{a:4,b:5,c:7}]
+  //filterOptionArray(arr,'a')
+  //[{b:2,c:9},{b:3,c:5},{b:9},{b:2,c:5},{b:5,c:7}]
+  //filterOptionArray(arr,'a,c')
+  //[{b:2},{b:3},{b:9},{b:2},{b:5}]
+
+  //  图片没加载出来时用一张图片代替  aftLoadImg(obj,url,cb);
+
+  //  图片滚动懒加载  loadImg(className,num)
+  //  var arr=[{a:1,b:2,c:9},{a:2,b:3,c:5},{a:5,b:9},{a:4,b:2,c:5},{a:4,b:5,c:7}]
+  //  对象数组的排序  arraySort(arr2,'a,b'); a是第一排序条件，b是第二排序条件
+
+  //  数组扁平化  steamroller(arr);
+
+  //  创建正则字符  createKeyExp(strArr);
+
+  //  关键字加标签（多个关键词用空格隔开） findKey(str,key,el);
+  //  console.log(LIB.findKey('呼啦啦啦重点啦啦OK啦啦啦重点啦啦啦', '重点 OK', 'i'));
+
+  //  数据类型判断  istype(o,type);
+
+  //  找出最长单词 (Find the Longest word in a String)
+  //  console.log(LIB.longestWord('Find the Longest word in a String'));
+
+  //  句中单词首字母大写 (Title Case a Sentence)
+  //  console.log(LIB.titleCaseUp('this is a title'));
+
+  //  手机类型判断 browserInfo(type);
+  //  console.log(LIB.browserInfo('MicroMessenger'));
+
+  //  过滤字符串(html标签，表情，特殊字符)  filter(str,type,restr,spstr);
+  //字符串，替换内容（special-特殊字符,html-html标签,emjoy-emjoy表情,word-小写字母，WORD-大写字母，number-数字,chinese-中文），要替换成什么，默认'',保留哪些特殊字符
+  //如果需要过滤多种字符，type参数使用,分割，如下栗子
+  //过滤字符串的html标签，大写字母，中文，特殊字符，全部替换成*,但是特殊字符'%'，'?'，除了这两个，其他特殊字符全部清除
+  //  var str='asd    654a大蠢sasdasdASDQWEXZC6d5#%^*^&*^%^&*$\\"\'#@!()*/-())_\'":"{}?<div></div><img src=""/>啊实打实大自行车这些课程';
+  //  console.log(LIB.filterStr(str, 'html,WORD,chinese,special', '*', '%?'));
+
+
+</script>
+</body>
+</html>
